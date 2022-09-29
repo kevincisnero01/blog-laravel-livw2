@@ -17,20 +17,56 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col" class="px-6 py-3 tex-left text-xs font-medium text-gray-500 uppercase">
+                        <th scope="col" 
+                            class="cursor-pointer px-6 py-3 tex-left text-xs text-gray-500 uppercase"
+                            wire:click="order('id')">
                             id
+                            {{-- Sort --}}
+                            @if ($sort == 'id')
+                                @if($direction == 'asc')
+                                    <i class="fa-solid fa-sort-up float-right"></i>
+                                @else
+                                    <i class="fa-solid fa-sort-down float-right"></i>
+                                @endif
+                            @else
+                                <i class="fa-solid fa-sort float-right"></i>
+                            @endif
                         </th>
-                        <th scope="col" class="px-6 py-3 tex-left text-xs font-medium text-gray-500 uppercase">
+                        <th scope="col" 
+                            class="cursor-pointer px-6 py-3 tex-left text-xs text-gray-500 uppercase"
+                            wire:click="order('title')">
                             Titulo
+                            {{-- Sort --}}
+                            @if ($sort == 'title')
+                                @if($direction == 'asc')
+                                    <i class="fa-solid fa-sort-up float-right"></i>
+                                @else
+                                    <i class="fa-solid fa-sort-down float-right"></i>
+                                @endif
+                            @else
+                                <i class="fa-solid fa-sort float-right"></i>
+                            @endif
                         </th>
-                        <th scope="col" class="px-6 py-3 tex-left text-xs font-medium text-gray-500 uppercase">
+                        <th scope="col" 
+                            class="cursor-pointer px-6 py-3 tex-left text-xs text-gray-500 uppercase"
+                            wire:click="order('content')">
                             Contenido
+                            {{-- Sort --}}
+                            @if ($sort == 'content')
+                                @if($direction == 'asc')
+                                    <i class="fa-solid fa-sort-up float-right"></i>
+                                @else
+                                    <i class="fa-solid fa-sort-down float-right"></i>
+                                @endif
+                            @else
+                                <i class="fa-solid fa-sort float-right"></i>
+                            @endif
                         </th>
-                        <th scope="col" class="relative px-6 py-3">
-                            <span class="sr-only">Opciones</span>
+                        <th scope="col"
+                            class="relative px-6 py-3 text-xs text-gray-500 uppercase">
+                            Opciones
                         </th>
                     </tr>
-
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach ($posts as $post)     
