@@ -17,7 +17,13 @@ class CreatePost extends Component
             'content' => $this->content
         ]);
 
-        return redirect()->route('dashboard');
+        $this->reset(['open','title','content']);
+        $this->emitTo('show-post','render');
+        $this->emit('alert',[
+            'title' => 'Registro Exitoso', 
+            'text' => 'El post se registro exitosamente',
+            'icon' => 'success'
+        ]);
     }
     public function render()
     {
