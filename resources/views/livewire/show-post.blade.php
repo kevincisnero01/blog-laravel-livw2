@@ -9,8 +9,16 @@
         <!--Required Tailwind CSS v0.2+ -->
     <x-table>
 
-        <div class="px-6 py-4">
-            <x-jet-input type="text" wire:model="search" class="w-full" placeholder="Ingrese el termino que desea buscar"/>
+        <div class="px-6 py-4 flex items-center">
+
+            <x-jet-input 
+                type="text" 
+                wire:model="search" 
+                class="flex-1 mr-4" 
+                placeholder="Ingrese el termino que desea buscar"/>
+
+            @livewire('create-post')
+            
         </div>
 
         @if($posts->count())
