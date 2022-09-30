@@ -15,7 +15,7 @@
             <div class="mb-4">
                 <x-jet-label value="Titulo del Post"></x-jet-label>
                 <x-jet-input 
-                    wire:model="title" 
+                    wire:model.defer="title" 
                     type="text" 
                     class="w-full"
                     placeholder="Ingrese el titulo del post">
