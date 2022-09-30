@@ -7,11 +7,11 @@ use Livewire\Component;
 
 class CreatePost extends Component
 {   
-    public $open = true;
+    public $open = false;
     public $title, $content;    
     protected $rules =[
         'title' => 'required',
-        'content' => 'required|min:100'
+        'content' => 'required'
     ];
 
     public function save()
