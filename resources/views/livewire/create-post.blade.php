@@ -15,11 +15,12 @@
             <div class="mb-4">
                 <x-jet-label value="Titulo del Post"></x-jet-label>
                 <x-jet-input 
-                    wire:model.defer="title" 
+                    wire:model="title" 
                     type="text" 
                     class="w-full"
                     placeholder="Ingrese el titulo del post">
                 </x-jet-input>
+                <x-jet-input-error for="title"></x-jet-input-error>
             </div>
 
             <div class="mb-4">
@@ -29,6 +30,7 @@
                     class="form-control w-full"
                     placeholder="Ingrese el contenido del post">
                 </textarea>
+                <x-jet-input-error for="content"></x-jet-input-error>
             </div>
         </x-slot>
 
