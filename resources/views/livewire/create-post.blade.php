@@ -32,6 +32,26 @@
                 </textarea>
                 <x-jet-input-error for="content"></x-jet-input-error>
             </div>
+
+            <div class="mb-4">
+                <x-jet-label value="Imagen de Post"></x-jet-label>
+                <input type="file" id="{{$image_id}}" wire:model="image" class="mb-4">
+                <x-jet-input-error for="image"></x-jet-input-error>
+                <!-- Mensaje Cargando Imagen-->
+                <div wire:loading wire:target="image" class="my-4 bg-red-100 border-red-400 text-red-700 px-4 py-3 rounded">
+                    <strong class="font-bold">¡Imagen Cargando...!</strong>
+                    <span class="block sm:inline">Espere mientras se carga la previsualización</span>
+                </div>
+                <!-- Previsualizacion de Imagen-->
+                @if ($image)
+                    <img 
+                        src="{{ $image->temporaryURL() }}" 
+                        width="300px" 
+                        height="300px" 
+                        class="border-2 border-dashed border-gray-400">
+                @endif
+                
+            </div>
         </x-slot>
 
         <x-slot name="footer">
@@ -42,7 +62,7 @@
             <x-jet-button 
                 wire:click="save"
                 wire:loading.attr="disabled"
-                wire:target="save"
+                wire:target="save,image"
                 class="disabled:opacity-25 bg-green-500 hover:bg-green-600 active:bg-green-800 ml-2">
                 Guardar
             </x-jet-button>

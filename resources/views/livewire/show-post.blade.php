@@ -1,7 +1,7 @@
 <div>
     <x-slot name="header">
         <h2 class="font-semibold text-x1 text-gray-800 leading-title">
-            {{ __('Dashboard') }}
+            Listado de Posts
         </h2>
     </x-slot>
 
