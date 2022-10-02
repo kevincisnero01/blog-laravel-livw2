@@ -3,3 +3,5 @@
 @tailwind utilities;
 
 @import 'form.css';
+
+@import 'buttons.css';

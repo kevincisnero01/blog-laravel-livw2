@@ -70,6 +70,9 @@
                                 <i class="fa-solid fa-sort float-right"></i>
                             @endif
                         </th>
+                        <th scope="col" class="cursor-pointer px-6 py-3 tex-left text-xs text-gray-500 uppercase">
+                            Imagen
+                        </th>  
                         <th scope="col"
                             class="relative px-6 py-3 text-xs text-gray-500 uppercase">
                             Opciones
@@ -94,8 +97,14 @@
                                 {{ $post->content }}
                             </div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-rigth text-sm font-semibold">
-                            <a href="#" class="text-indigo-600 hover:text-indigo-900"> Edit </a>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-500">
+                                <img src="{{ Storage::url($post->image) }}" height="48" width=48 alt="Photo">
+                            </div>
+                        </td>
+                        
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold">
+                            @livewire('edit-post',['post' => $post],key($post->id))
                         </td>
                     </tr>
                     @endforeach

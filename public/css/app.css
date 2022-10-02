@@ -15,6 +15,68 @@
     --tw-ring-color: rgb(199 210 254 / var(--tw-ring-opacity));
     --tw-ring-opacity: 0.5
 }
+.btn {
+
+    cursor: pointer;
+
+    border-radius: 0.25rem;
+
+    padding-top: 0.5rem;
+
+    padding-bottom: 0.5rem;
+
+    padding-left: 1rem;
+
+    padding-right: 1rem;
+
+    font-weight: 700;
+
+    --tw-text-opacity: 1;
+
+    color: rgb(255 255 255 / var(--tw-text-opacity))
+}
+
+.btn-red {
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(220 38 38 / var(--tw-bg-opacity))
+}
+
+.btn-red:hover {
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(239 68 68 / var(--tw-bg-opacity))
+}
+
+.btn-blue {
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(37 99 235 / var(--tw-bg-opacity))
+}
+
+.btn-blue:hover {
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(59 130 246 / var(--tw-bg-opacity))
+}
+
+.btn-green {
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(22 163 74 / var(--tw-bg-opacity))
+}
+
+.btn-green:hover {
+
+    --tw-bg-opacity: 1;
+
+    background-color: rgb(34 197 94 / var(--tw-bg-opacity))
+}
 /*
 ! tailwindcss v3.1.8 | MIT License | https://tailwindcss.com
 *//*
@@ -1167,17 +1229,20 @@ select {
 .float-right {
   float: right;
 }
+.float-left {
+  float: left;
+}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
 }
-.-my-2 {
-  margin-top: -0.5rem;
-  margin-bottom: -0.5rem;
-}
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+.-my-2 {
+  margin-top: -0.5rem;
+  margin-bottom: -0.5rem;
 }
 .ml-3 {
   margin-left: 0.75rem;
@@ -1425,12 +1490,6 @@ select {
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
-.grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-.grid-cols-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
 .flex-row {
   flex-direction: row;
 }
@@ -1460,9 +1519,6 @@ select {
 }
 .gap-1 {
   gap: 0.25rem;
-}
-.gap-3 {
-  gap: 0.75rem;
 }
 .space-x-8 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
@@ -1508,6 +1564,9 @@ select {
 .whitespace-nowrap {
   white-space: nowrap;
 }
+.break-all {
+  word-break: break-all;
+}
 .rounded-md {
   border-radius: 0.375rem;
 }
@@ -1541,9 +1600,6 @@ select {
 }
 .border-2 {
   border-width: 2px;
-}
-.border-4 {
-  border-width: 4px;
 }
 .border-b-2 {
   border-bottom-width: 2px;
@@ -2066,11 +2122,6 @@ select {
 .hover\:text-gray-900:hover {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
-}
-
-.hover\:text-indigo-900:hover {
-  --tw-text-opacity: 1;
-  color: rgb(49 46 129 / var(--tw-text-opacity));
 }
 
 .focus\:z-10:focus {
