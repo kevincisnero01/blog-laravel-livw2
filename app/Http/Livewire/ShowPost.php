@@ -3,14 +3,33 @@
 namespace App\Http\Livewire;
 
 use App\Models\Post;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class ShowPost extends Component
-{
+{   
+    use WithFileUploads;
+
+    //Index Post
     public $search;
     public $sort = 'id';
     public $direction = 'desc';
-    protected $listeners = ['render','render'];
+    //Edit Post
+    public $open_edit = false;
+    public $post;
+    public $image, $image_id;
+
+    protected $rules = [
+        'post.title' => 'required',
+        'post.content' => 'required'
+    ];
+
+    public function mount()
+    {   
+        $this->post = new Post();
+        $this->image_id = rand();
+    }
 
     public function render()
     {   
@@ -36,7 +55,37 @@ class ShowPost extends Component
             $this->sort = $sort;
             $this->direction = 'asc';
         }
+    }
+
+    public function edit(Post $post)
+    {   
+        $this->open_edit = true;
+        $this->post = $post;
+    }
+
+    public function update()
+    {   
+        // == Validate Fields
+        $this->validate();
+
+        // == Process Image
+        if($this->image)
+        {
+            Storage::delete($this->post->image);
+            $this->post->image = $this->image->store('public/posts');
+        }
+
+        // == Save Data 
+        $this->post->save();
+
+        // == Reset Data
+        $this->reset(['open_edit','image']);
         
-        
+        // == Save Message
+        $this->emit('alert',[
+            'title' => 'Editar Post',
+            'text' => 'El post se actualizo correctamente',
+            'icon' => 'success'
+        ]);
     }
 }

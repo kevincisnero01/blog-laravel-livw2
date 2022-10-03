@@ -21,7 +21,7 @@ class EditPost extends Component
     ];  
 
     public function mount(Post $post)
-    {
+    {   
         $this->post = $post;
         $this->image_id = rand();
     }
@@ -31,7 +31,7 @@ class EditPost extends Component
         // == Validar campos
         $this->validate();
 
-        // === Subir imagen
+        // === Procesar imagen
         if($this->image)
         {
             Storage::delete([$this->post->image]);
