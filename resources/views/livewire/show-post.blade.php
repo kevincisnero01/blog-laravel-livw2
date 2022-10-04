@@ -117,6 +117,12 @@
                 No existe existe ningun registro que coincida con la busqueda.
             </div>
         @endif
+        
+        @if($posts->hasPages())
+        <div class="px-4 py-2">
+            {{ $posts->links() }}
+        </div>
+        @endif
 
     </x-table>
     </div><!--.max-w-7x1-->

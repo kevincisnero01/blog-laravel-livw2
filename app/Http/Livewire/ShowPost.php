@@ -6,10 +6,12 @@ use App\Models\Post;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class ShowPost extends Component
 {   
     use WithFileUploads;
+    use WithPagination;
 
     //Index Post
     public $search;
@@ -30,12 +32,16 @@ class ShowPost extends Component
         $this->post = new Post();
         $this->image_id = rand();
     }
+    public function updatingSearch()
+    {   
+        $this->resetPage();
+    }
 
     public function render()
     {   
         $posts = Post::where('title','like','%'.$this->search.'%')
             ->OrderBy($this->sort, $this->direction)
-            ->get();
+            ->paginate(10);
 
         return view('livewire.show-post',['posts' => $posts])
         ->layout('layouts.app');
@@ -81,7 +87,7 @@ class ShowPost extends Component
         // == Reset Data
         $this->reset(['open_edit','image']);
         
-        // == Save Message
+        // == Send Message
         $this->emit('alert',[
             'title' => 'Editar Post',
             'text' => 'El post se actualizo correctamente',
