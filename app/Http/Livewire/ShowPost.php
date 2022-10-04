@@ -14,9 +14,11 @@ class ShowPost extends Component
     use WithPagination;
 
     //Index Post
-    public $search;
+    public $search = '';
     public $sort = 'id';
     public $direction = 'desc';
+    public $segment = '10';
+
     //Edit Post
     public $open_edit = false;
     public $post;
@@ -25,6 +27,13 @@ class ShowPost extends Component
     protected $rules = [
         'post.title' => 'required',
         'post.content' => 'required'
+    ];
+
+    protected $queryString = [
+        'search'=> ['except' => ''],
+        'sort' => ['except' => 'id'],
+        'direction'=> ['except' => 'desc'],
+        'segment'=> ['except' => '10'],
     ];
 
     public function mount()
@@ -41,7 +50,7 @@ class ShowPost extends Component
     {   
         $posts = Post::where('title','like','%'.$this->search.'%')
             ->OrderBy($this->sort, $this->direction)
-            ->paginate(10);
+            ->paginate($this->segment);
 
         return view('livewire.show-post',['posts' => $posts])
         ->layout('layouts.app');
