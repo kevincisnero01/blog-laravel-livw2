@@ -18,6 +18,7 @@ class ShowPost extends Component
     public $sort = 'id';
     public $direction = 'desc';
     public $segment = '10';
+    public $readyToLoad = false;
 
     //Edit Post
     public $open_edit = false;
@@ -46,12 +47,24 @@ class ShowPost extends Component
         $this->resetPage();
     }
 
+    public function loadPost()
+    {
+        $this->readyToLoad = true;
+    }
+
     public function render()
     {   
-        $posts = Post::where('title','like','%'.$this->search.'%')
+        if($this->readyToLoad)
+        {
+            $posts = Post::where('title','like','%'.$this->search.'%')
             ->OrderBy($this->sort, $this->direction)
             ->paginate($this->segment);
 
+        }else
+        {
+            $posts = [];
+        }
+  
         return view('livewire.show-post',['posts' => $posts])
         ->layout('layouts.app');
     }
