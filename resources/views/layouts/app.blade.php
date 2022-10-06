@@ -12,14 +12,11 @@
         <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.css') }}">
         
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         @livewireStyles
 
-        @stack('css')
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script> 
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>  
+        @stack('css')
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -41,24 +38,13 @@
                 {{ $slot }}
             </main>
         </div>
+        <!-- Scripts -->
+        @livewireScripts
+        
+        <script src="{{ asset('js/app.js') }}"></script> 
 
         @stack('modals')
 
         @stack('js')
-
-        @livewireScripts
-        <script>
-            Livewire.on('alert', event =>{
-                Swal.fire({
-                    title: event.title,
-                    text: event.text,
-                    icon: event.icon,
-                    showConfirmButton: false,
-                    timer: 1800,
-                    showCloseButton: true,
-                })
-            })
-        </script>
-        
     </body>
 </html>
