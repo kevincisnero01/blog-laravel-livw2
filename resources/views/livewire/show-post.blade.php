@@ -10,7 +10,6 @@
     <x-table>
 
         <div class="px-6 py-4 flex items-center">
-
             <div class="flex items-center">
                 <span>Mostrar</span>
                 <select class="form-control mx-1" wire:model='segment'>
@@ -29,7 +28,6 @@
                 placeholder="Ingrese el termino que desea buscar"/>
 
             @livewire('create-post')
-            
         </div>
 
         @if(count($posts))
@@ -40,7 +38,7 @@
                             class="cursor-pointer px-6 py-3 tex-left text-xs text-gray-500 uppercase"
                             wire:click="order('id')">
                             id
-                            {{-- Sort --}}
+                            {{-- Icon for sort --}}
                             @if ($sort == 'id')
                                 @if($direction == 'asc')
                                     <i class="fa-solid fa-sort-up float-right"></i>
@@ -55,7 +53,7 @@
                             class="cursor-pointer px-6 py-3 tex-left text-xs text-gray-500 uppercase"
                             wire:click="order('title')">
                             Titulo
-                            {{-- Sort --}}
+                            {{-- Icon for sort --}}
                             @if ($sort == 'title')
                                 @if($direction == 'asc')
                                     <i class="fa-solid fa-sort-up float-right"></i>
@@ -70,7 +68,7 @@
                             class="cursor-pointer px-6 py-3 tex-left text-xs text-gray-500 uppercase"
                             wire:click="order('content')">
                             Contenido
-                            {{-- Sort --}}
+                            {{-- Icon for sort --}}
                             @if ($sort == 'content')
                                 @if($direction == 'asc')
                                     <i class="fa-solid fa-sort-up float-right"></i>
@@ -113,16 +111,20 @@
                                 <img src="{{ Storage::url($item->image) }}" height="48" width=48 alt="Photo">
                             </div>
                         </td>
-                        
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold">
+                            <!-- Action buttons-->
                             <a class="btn btn-blue" wire:click="edit({{ $item }})"> 
                                 <i class="fa-regular fa-pen-to-square"></i>
+                            </a>
+                            <a class="btn btn-red ml-2" wire:click="$emit('deletePost',{{ $item }})"> 
+                                <i class="fa-solid fa-trash-can"></i>
                             </a>
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
+
             @if($posts->hasPages())
             <div class="px-4 py-2">
                 {{ $posts->links() }}
@@ -167,17 +169,18 @@
             </div>
 
             <div class="mb-4">
-                
                 <x-jet-label value="Imagen"></x-jet-label>
                 <x-jet-input type="file"  wire:model="image" id="{{$image_id}}"></x-jet-input>
                 <x-jet-input-error for="image"></x-jet-input-error>
                 <br>
-                <!-- Mensaje Cargando Imagen-->
+
+                <!-- Imagen loading message-->
                 <div wire:loading wire:target="image" class="my-4 bg-red-100 border-red-400 text-red-700 px-4 py-3 rounded">
                     <strong class="font-bold">¡Imagen Cargando...!</strong>
                     <span class="block sm:inline">Espere mientras se carga la previsualización</span>
                 </div>
-                <!-- Previsualizacion de Imagen-->
+
+                <!-- Image preview-->
                 @if ($image)
                     <img src="{{ $image->temporaryURL() }}" class="border-2 border-dashed border-gray-400 w-full">
                 @else
@@ -191,6 +194,7 @@
                 wire:click="$set('open_edit',false)">
                 Cancelar
             </x-jet-secondary-button>
+
             <x-jet-button 
                 wire:click="update"
                 wire:loading.attr="disabled"
@@ -200,4 +204,48 @@
             </x-jet-button>
         </x-slot>
     </x-jet-dialog-modal>
+
+@push('js') 
+    <script>
+        Livewire.on('alert', event =>{
+            Swal.fire({
+                title: event.title,
+                text: event.text,
+                icon: event.icon,
+                showConfirmButton: false,
+                timer: 1800,
+                showCloseButton: true,
+            })
+        })
+    </script>
+
+    <script>
+        Livewire.on('deletePost', postId =>{
+            Swal.fire({
+            title: '¿Esta seguro?',
+            text: "¡Esta accción no se puede revertir!",
+            icon: 'warning',
+            showCancelButton: true,
+            showCloseButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, ¡Eliminalo!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+
+                Livewire.emitTo('show-post','delete', postId);
+
+                Swal.fire({
+                    title:'¡Post Eliminado!',
+                    text:'Tu archivo fue aliminado satisfactoriamente.',
+                    icon:'success',
+                    timer: 1800,
+                    showConfirmButton: false,
+                })
+            }
+            })
+        })
+    </script>
+@endpush
+
 </div>

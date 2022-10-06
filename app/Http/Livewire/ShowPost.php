@@ -13,14 +13,14 @@ class ShowPost extends Component
     use WithFileUploads;
     use WithPagination;
 
-    //Index Post
+    // Index
     public $search = '';
     public $sort = 'id';
     public $direction = 'desc';
     public $segment = '10';
     public $readyToLoad = false;
 
-    //Edit Post
+    // Edit
     public $open_edit = false;
     public $post;
     public $image, $image_id;
@@ -36,17 +36,24 @@ class ShowPost extends Component
         'direction'=> ['except' => 'desc'],
         'segment'=> ['except' => '10'],
     ];
+    
+    // Listening Events
+    protected $listeners = ['render','delete'];
 
+    // Inicialize values
     public function mount()
     {   
         $this->post = new Post();
         $this->image_id = rand();
     }
+
+    // Reset after searching
     public function updatingSearch()
     {   
         $this->resetPage();
     }
 
+    // Charging states
     public function loadPost()
     {
         $this->readyToLoad = true;
@@ -68,7 +75,7 @@ class ShowPost extends Component
         return view('livewire.show-post',['posts' => $posts])
         ->layout('layouts.app');
     }
-
+    // Control sort
     public function order($sort)
     {
         if ($this->sort == $sort) {
@@ -84,36 +91,42 @@ class ShowPost extends Component
             $this->direction = 'asc';
         }
     }
-
+    // Modal edit
     public function edit(Post $post)
     {   
         $this->open_edit = true;
         $this->post = $post;
     }
-
+    // Update post
     public function update()
     {   
-        // == Validate Fields
+        // Validate fields
         $this->validate();
 
-        // == Process Image
+        // Process image
         if($this->image)
         {
             Storage::delete($this->post->image);
             $this->post->image = $this->image->store('public/posts');
         }
 
-        // == Save Data 
+        // Save data 
         $this->post->save();
 
-        // == Reset Data
+        // Reset data
         $this->reset(['open_edit','image']);
         
-        // == Send Message
+        // Send message alert
         $this->emit('alert',[
             'title' => 'Editar Post',
             'text' => 'El post se actualizo correctamente',
             'icon' => 'success'
         ]);
+    }
+
+    // Delete post
+    public function delete(Post $post)
+    {
+        $post->delete();
     }
 }

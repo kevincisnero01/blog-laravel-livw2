@@ -6,7 +6,6 @@
     </x-jet-button>
 
     <x-jet-dialog-modal wire:model="open">
-
         <x-slot name="title">
             <h2 class="uppercase text-2x1 font-bold">Crear Post</h2>
         </x-slot>
@@ -38,12 +37,12 @@
                 <x-jet-label value="Imagen de Post"></x-jet-label>
                 <input type="file" id="{{$image_id}}" wire:model="image" class="mb-4">
                 <x-jet-input-error for="image"></x-jet-input-error>
-                <!-- Mensaje Cargando Imagen-->
+                <!-- Image loading message-->
                 <div wire:loading wire:target="image" class="my-4 bg-red-100 border-red-400 text-red-700 px-4 py-3 rounded">
                     <strong class="font-bold">¡Imagen Cargando...!</strong>
                     <span class="block sm:inline">Espere mientras se carga la previsualización</span>
                 </div>
-                <!-- Previsualizacion de Imagen-->
+                <!-- Image Preview-->
                 @if ($image)
                     <img src="{{ $image->temporaryURL() }}" class="border-2 border-dashed border-gray-400 w-full">
                 @endif
@@ -56,6 +55,7 @@
                 wire:click="$set('open',false)">
                 Cancelar
             </x-jet-secondary-button>
+
             <x-jet-button 
                 wire:click="save"
                 wire:loading.attr="disabled"
@@ -68,7 +68,6 @@
     </x-jet-dialog-modal>
 
     @push('js')
-
         <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
 
         <script>
@@ -83,6 +82,5 @@
                     console.error( error );
                 } );
         </script>
-        
     @endpush
 </div>

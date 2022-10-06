@@ -20,6 +20,7 @@ class EditPost extends Component
         'post.content' => 'required'
     ];  
 
+    // Inicialize values
     public function mount(Post $post)
     {   
         $this->post = $post;
@@ -28,26 +29,26 @@ class EditPost extends Component
 
     public function save()
     {   
-        // == Validar campos
+        // Validar campos
         $this->validate();
 
-        // === Procesar imagen
+        // Procesar imagen
         if($this->image)
         {
             Storage::delete([$this->post->image]);
             $this->post->image = $this->image->store('public/posts');
         }
 
-        // == Guardar datos
+        // Save data
         $this->post->save();
 
-        // == Resetear campos
+        // Reset fields
         $this->reset(['open','image']);
 
-        // === Renderizar Vista 
+        // Render view 
         $this->emitTo('show-post','render');
 
-        // === Mostrar Mensaje
+        // Send message alert
         $this->emit('alert',[
             'title' => 'Registro Actualizado', 
             'text' => 'El post se actualizo exitosamente',
