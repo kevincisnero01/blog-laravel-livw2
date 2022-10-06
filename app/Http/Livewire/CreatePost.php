@@ -24,6 +24,17 @@ class CreatePost extends Component
         $this->image_id = rand();
     }
 
+    // Reset after close modal
+    public function updatingOpen()
+    {
+        if($this->open == false)
+        {
+            $this->reset(['content','title','image']);
+            $this->emit('resetCKEditor');
+            $this->image_id = rand();
+        }
+    }
+
     public function save()
     {   
         $this->validate();

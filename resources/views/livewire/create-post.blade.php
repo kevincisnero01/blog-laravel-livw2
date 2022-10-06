@@ -22,14 +22,16 @@
                 <x-jet-input-error for="title"></x-jet-input-error>
             </div>
 
-            <div class="mb-4" wire:ignore>
+            <div class="mb-4">
                 <x-jet-label value="Contenido del Post"></x-jet-label>
+                <div wire:ignore>
                 <textarea rows="6" 
                     wire:model.defer="content" 
                     id="editor"
                     class="form-control w-full"
                     placeholder="Ingrese el contenido del post">
                 </textarea>
+                </div>
                 <x-jet-input-error for="content"></x-jet-input-error>
             </div>
 
@@ -42,7 +44,7 @@
                     <strong class="font-bold">¡Imagen Cargando...!</strong>
                     <span class="block sm:inline">Espere mientras se carga la previsualización</span>
                 </div>
-                <!-- Image Preview-->
+                <!-- Image Preview (create)-->
                 @if ($image)
                     <img src="{{ $image->temporaryURL() }}" class="border-2 border-dashed border-gray-400 w-full">
                 @endif
@@ -76,7 +78,11 @@
                 .then(function(editor){
                     editor.model.document.on('change:data', () => {
                         @this.set('content', editor.getData());
-                    })
+                    });
+
+                    Livewire.on('resetCKEditor', () => {
+                        editor.setData('');
+                    });
                 })
                 .catch( error => {
                     console.error( error );

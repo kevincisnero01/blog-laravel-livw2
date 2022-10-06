@@ -103,7 +103,7 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-500">
-                                {{ $item->content }}
+                                {!! $item->content !!}
                             </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
@@ -141,6 +141,7 @@
     </x-table>
     </div><!--.max-w-7x1-->
 
+    <!-- Modal Edit Post -->
     <x-jet-dialog-modal wire:model="open_edit">
         <x-slot name="title">
             Editar 
@@ -161,7 +162,7 @@
             <div class="mb-4">
                 <x-jet-label value="Contenido del Post"></x-jet-label>
                 <textarea rows="6" 
-                    wire:model="post.content" 
+                    wire:model="post.content"
                     class="form-control w-full"
                     placeholder="Ingrese el contenido del post">
                 </textarea>
@@ -180,10 +181,10 @@
                     <span class="block sm:inline">Espere mientras se carga la previsualización</span>
                 </div>
 
-                <!-- Image preview-->
+                <!-- Image preview (edit)-->
                 @if ($image)
                     <img src="{{ $image->temporaryURL() }}" class="border-2 border-dashed border-gray-400 w-full">
-                @else
+                @elseif($post->image)
                     <img src="{{ Storage::url($post->image)}}" alt="Imagen">
                 @endif
             </div>
