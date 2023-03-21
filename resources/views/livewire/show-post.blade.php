@@ -101,7 +101,7 @@
                                 {{ $item->title }} 
                             </div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
+                        <td class="px-6 py-4">
                             <div class="text-sm text-gray-500">
                                 {!! $item->content !!}
                             </div>
